@@ -1,5 +1,7 @@
 # wt-fe
 
+[![Build Status](https://travis-ci.org/leondeng/wt-fe.svg?branch=develop)](https://travis-ci.org/leondeng/wt-fe)
+
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.12.1.
 
