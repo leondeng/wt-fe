@@ -19,10 +19,10 @@ module.exports = function (grunt) {
     cdnify: 'grunt-google-cdn',
     ngconstant: 'grunt-ng-constant'
   });
-  
-  var pkg = require('./package.json');
-  var currentVersion = pkg.version;
-  
+
+  //var pkg = require('./package.json');
+  //var currentVersion = pkg.version;
+
   var serviceUrls = require('./config/service_urls.json');
 
   // Configurable paths for the application
@@ -445,7 +445,7 @@ module.exports = function (grunt) {
         singleRun: true
       }
     },
-    
+
     /**
      * ngconstant
      * Environment settings

@@ -10,6 +10,6 @@
 angular.module('wtFeApp')
   .controller('GoalCtrl', function ($scope, goalService) {
     $scope.setGoal = function () {
-      goalService.setGoalFor($scope.goal);
+      goalService.setGoalFor($scope.goalVal);
     };
   });
