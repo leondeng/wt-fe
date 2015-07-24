@@ -16,8 +16,14 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    ngconstant: 'grunt-ng-constant'
   });
+  
+  var pkg = require('./package.json');
+  var currentVersion = pkg.version;
+  
+  var serviceUrls = require('./config/service_urls.json');
 
   // Configurable paths for the application
   var appConfig = {
@@ -438,9 +444,49 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+    
+    /**
+     * ngconstant
+     * Environment settings
+     * @see http://stackoverflow.com/questions/16339595/angular-js-configuration-for-different-enviroments
+     */
+    ngconstant: {
+      options: {
+        name: 'config',
+        // @see https://github.com/werk85/grunt-ng-constant/issues/7
+        wrap: '/*jshint quotmark:double*/\n\n"use strict";\n\n{%= __ngModule %}\n',
+        space: '  '
+      },
+      dev: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: 'dev',
+          SERVICE_ROOT: serviceUrls.dev.services,
+        }
+      },
+      stage: {
+        options: {
+          dest: '<%= yeoman.dist %>/scripts/config.js'
+        },
+        constants: {
+          ENV: 'prod',
+          SERVICE_ROOT: serviceUrls.prod.services,
+        }
+      },
+      prod: {
+        options: {
+          dest: '<%= yeoman.dist %>/scripts/config.js'
+        },
+        constants: {
+          ENV: 'prod',
+          SERVICE_ROOT: serviceUrls.prod.services,
+        }
+      }
     }
   });
-
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -449,6 +495,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:dev',
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
@@ -464,6 +511,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'ngconstant:dev',
     'wiredep',
     'concurrent:test',
     'autoprefixer',
@@ -473,6 +521,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:prod',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

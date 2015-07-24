@@ -1,0 +1,13 @@
+{
+  "dev": {
+    "services": "http://wtrack.localhost/app_dev.php/"
+  },
+
+  "stage": {
+    "services": "http://wtrack.localhost/"
+  },
+
+  "prod": {
+    "services": "http://wtrack.localhost/"
+  }
+}
