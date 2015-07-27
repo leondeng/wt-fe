@@ -8,10 +8,12 @@
  * Controller of the wtFeApp
  */
 angular.module('wtFeApp')
-  .controller('HistoryCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('HistoryCtrl', function ($scope, trackFactory) {
+    var page = 1;
+    trackFactory.getTracksFor(page)
+    .then(function (history){
+      $scope.tracks = history.tracks;
+      $scope.pagination = history.pagination;
+      $scope.loadingIsDone = true;
+    });
   });
