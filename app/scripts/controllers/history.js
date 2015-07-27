@@ -14,5 +14,6 @@ angular.module('wtFeApp')
     .then(function (history){
       $scope.tracks = history.tracks;
       $scope.pagination = history.pagination;
+      $scope.loadingIsDone = true;
     });
   });
