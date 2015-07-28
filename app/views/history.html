@@ -19,8 +19,9 @@
   </tbody>
 </table>
 
-<pagination ng-if="loadingIsDone"></pagination>
-
+<div ng-if="loadingIsDone">
+<pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+</div>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newTrackModal">
   New Track
 </button>

@@ -16,6 +16,7 @@ angular.module('wtFeApp')
     return {
       getTracksFor : function (page) {
         var deferred = $q.defer();
+        page = page || 1;
         trackService.getTracksFor(page).success(function (data) {
           var history = data;
           deferred.resolve(history);
