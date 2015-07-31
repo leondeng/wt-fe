@@ -10,7 +10,7 @@
 angular.module('wtFeApp')
   .controller('HistoryCtrl', function ($scope, trackFactory) {
 
-    $scope.currentPage = 1;
+    $scope.page = {current: 1};
     $scope.maxSize = 5;
     $scope.bigTotalItems = 175;
     $scope.bigCurrentPage = 1;
@@ -22,17 +22,15 @@ angular.module('wtFeApp')
     $scope.loadingIsDone = true;
 
     $scope.pageChanged = function() {
-      console.log('Page changed to: ' + $scope.currentPage);
+      //console.log('Page changed to: ' + $scope.page.current);
       loadTracks();
     };
 
     function loadTracks() {
-      trackFactory.getTracksFor($scope.currentPage)
+      trackFactory.getTracksFor($scope.page.current)
         .then(function (history) {
-          //$scope.tracks = history.tracks;
           $scope.totalItems = history.pagination.total;
           angular.copy(history.tracks, $scope.tracks);
-          //$scope.loadingIsDone = true;
         });
     };
   });
